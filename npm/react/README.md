@@ -281,11 +281,11 @@ mount(<Todo todo={todo} />, {
 <summary>Additional configuration</summary>
 If your React and React DOM libraries are installed in non-standard paths (think monorepo scenario), you can tell the Cypress configuration where to find them. Specify paths like this:
 
-```json
+```js
 {
-  "env": {
+  env: {
     "@cypress/react": {
-      "react": "node_modules/react/umd/react.development.js",
+      react: "node_modules/react/umd/react.development.js",
       "react-dom": "node_modules/react-dom/umd/react-dom.development.js"
     }
   }
@@ -320,10 +320,10 @@ yarn add @cypress/code-coverage babel-plugin-istanbul
 
 If you are using [plugins/cra-v3](plugins/cra-v3) it instruments the code on the fly using `babel-plugin-istanbul` and generates report using dependency [cypress-io/code-coverage](https://github.com/cypress-io/code-coverage) (included). If you want to disable code coverage instrumentation and reporting, use `--env coverage=false` or `CYPRESS_coverage=false` or set in your Cypress configuration.
 
-```json
+```js
 {
-  "env": {
-    "coverage": false
+  env: {
+    coverage: false
   }
 }
 ```
