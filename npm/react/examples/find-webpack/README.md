@@ -22,7 +22,7 @@ Create React App projects are Webpack based; that's why we are installing the re
 yarn add cypress @cypress/react @cypress/webpack-dev-server --dev
 ```
 
-Next, create a `cypress.json` with some basic configuration:
+Next, create a `cypress/cypress.config.js` file with some basic configuration:
 
 ```json
 {

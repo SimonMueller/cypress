@@ -22,9 +22,9 @@ We need to install:
 
 ### Configure Cypress
 
-To setup any Cypress runner, the standard way is to create a `cypress.json` file at the root of your project. Checkout [the docs](https://docs.cypress.io/guides/references/configuration) to know the extend of your options.
+To setup any Cypress runner, the standard way is to create a `cypress.config.js` file at the root of your project. Checkout [the docs](https://docs.cypress.io/guides/references/configuration) to know the extend of your options.
 
-Here is the `cypress.json` file at work in this project:
+Here is the `cypress.config.js` file at work in this project:
 
 ```js
 // cypress.json
