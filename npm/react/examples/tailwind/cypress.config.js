@@ -3,7 +3,7 @@ const { defineConfig } = require('cypress')
 // @ts-check
 
 // load file devServer that comes with this plugin
-// https://github.com/bahmutov/cypress-react-unit-test#install
+// https://on.cypress.io/guides/component-testing/framework-configuration
 const devServer = require('@cypress/react/plugins/react-scripts')
 
 module.exports = defineConfig({
