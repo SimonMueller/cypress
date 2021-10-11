@@ -42,7 +42,7 @@ The last thing we need to is tell Cypress to use `@cypress/webpack-dev-server` f
 ```js
 const { defineConfig } = require('cypress')
 
-const devServer = require("@cypress/react/plugins/react-scripts")
+const { devServer } = require("@cypress/react/plugins/react-scripts")
 
 module.exports = defineConfig({
   component: {

@@ -8,10 +8,10 @@ const { defineConfig } = require('cypress')
 
 // import your craco.config.js
 const cracoConfig = require('../../craco.config.js')
-const devServer = require('@cypress/react/plugins/craco')
+const { devServer } = require('@cypress/react/plugins/craco')
 
 module.exports = defineConfig({
-  component: {
+  e2e: {
 		setupNodeEvents(on, config) {
       devServer(on, config, cracoConfig)
 

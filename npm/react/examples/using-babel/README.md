@@ -36,13 +36,17 @@ See spec files [src/\*.spec.js](src). The specs are bundled using [.babelrc](.ba
 ```js
 // let's bundle spec files and the components they include using
 // the same bundling settings as the project by loading .babelrc
-const devServer = require('@cypress/react/plugins/babel')
+const { devServer } = require('@cypress/react/plugins/babel')
 
-module.exports = (on, config) => {
-  devServer(on, config)
-  // IMPORTANT to return the config object
-  // with the any changed environment variables
-  return config
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents (on, config) {
+      devServer(on, config)
+      // IMPORTANT to return the config object
+      // with the any changed environment variables
+      return config
+    }
+  }
 }
 ```
 

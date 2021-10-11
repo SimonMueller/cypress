@@ -1,6 +1,6 @@
 import { defineConfig } from 'cypress'
 
-const devServer = require('@cypress/react/plugins/react-scripts')
+const { devServer } = require('@cypress/react/plugins/react-scripts')
 
 export default defineConfig({
   video: false,

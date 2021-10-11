@@ -4,7 +4,7 @@ const { defineConfig } = require('cypress')
 
 // load file devServer that comes with this plugin
 // https://github.com/bahmutov/@cypress/react#install
-const devServer = require('@cypress/react/plugins/react-scripts')
+const { devServer } = require('@cypress/react/plugins/react-scripts')
 
 module.exports = defineConfig({
   video: false,

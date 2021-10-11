@@ -1,8 +1,9 @@
 const { defineConfig } = require('cypress')
 
 // @ts-check
-const cracoConfig = require('../../craco.config.js')
-const devServer = require('@cypress/react/plugins/craco')
+const { devServer } = require('@cypress/react/plugins/craco')
+
+const cracoConfig = require('./craco.config.js')
 
 module.exports = defineConfig({
   component: {

@@ -4,7 +4,7 @@ const { defineConfig } = require('cypress')
 
 // load Webpack file devServer that comes with this plugin
 // https://on.cypress.io/guides/component-testing/framework-configuration
-const devServer = require('@cypress/react/plugins/load-webpack')
+const { devServer } = require('@cypress/react/plugins/load-webpack')
 
 module.exports = defineConfig({
   video: false,

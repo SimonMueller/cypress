@@ -4,7 +4,7 @@ const { defineConfig } = require("cypress");
 
 // load file devServer that comes with this plugin
 // https://on.cypress.io/guides/component-testing/framework-configuration
-const devServer = require("@cypress/react/plugins/react-scripts");
+const { devServer } = require('@cypress/react/plugins/react-scripts');
 
 const {
   addMatchImageSnapshotPlugin
