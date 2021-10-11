@@ -5,7 +5,6 @@ import { WizardNpmPackage } from './gql-WizardNpmPackage'
 import { arg, nonNull, objectType } from 'nexus'
 import { BUNDLERS, FRONTEND_FRAMEWORKS, TESTING_TYPES } from '@packages/types'
 import { TestingTypeEnum, WizardCodeLanguageEnum, WizardStepEnum } from '../enumTypes/gql-WizardEnums'
-import { Storybook } from './gql-Storybook'
 
 export const Wizard = objectType({
   name: 'Wizard',
@@ -99,7 +98,7 @@ export const Wizard = objectType({
     })
 
     t.field('storybook', {
-      type: Storybook,
+      type: 'Storybook',
       resolve: (source, args, ctx) => ctx.storybook.storybookInfo,
     })
   },
