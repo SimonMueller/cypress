@@ -1,12 +1,8 @@
-import type { FoundSpec, FullConfig, SpecFile } from '@packages/types'
+import type { FoundSpec, FullConfig } from '@packages/types'
 import { CsfFile, readCsfOrMdx } from '@storybook/csf-tools'
 import endent from 'endent'
-import glob from 'glob'
 import * as path from 'path'
-import { promisify } from 'util'
 import type { DataContext } from '..'
-
-const asyncGlob = promisify(glob)
 
 export class StorybookActions {
   constructor (private ctx: DataContext) {}
@@ -23,34 +19,6 @@ export class StorybookActions {
     const spec = await this.generate(storyPath, project.projectRoot, config.componentFolder)
 
     this.ctx.wizardData.generatedSpec = spec
-  }
-
-  async getStories (): Promise<SpecFile[]> {
-    const project = this.ctx.activeProject
-
-    if (!project) {
-      throw Error(`Cannot find stories without activeProject.`)
-    }
-
-    const storybook = await this.ctx.storybook.storybookInfo
-
-    if (!storybook) {
-      return []
-    }
-
-    const config = await this.ctx.project.getConfig(project.projectRoot)
-    const files: string[] = []
-
-    for (const storyPattern of storybook.storyGlobs) {
-      const res = await asyncGlob(path.join(storybook.storybookRoot, storyPattern))
-
-      files.push(...res)
-    }
-
-    // Don't currently support mdx
-    return files
-    .filter((file) => !file.endsWith('.mdx'))
-    .map((file) => this.ctx.file.normalizeFileToSpec(file, project.projectRoot, config.componentFolder || project.projectRoot))
   }
 
   private async generate (
