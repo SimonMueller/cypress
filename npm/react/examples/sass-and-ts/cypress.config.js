@@ -1,6 +1,5 @@
-const { defineConfig } = require('cypress')
-
 // @ts-check
+const { defineConfig } = require('cypress')
 
 // load Webpack file devServer that comes with this plugin
 // https://on.cypress.io/guides/component-testing/framework-configuration

@@ -1,6 +1,6 @@
+// @ts-check
 const { defineConfig } = require('cypress')
 
-// @ts-check
 const findReactScriptsWebpackConfig = require('@cypress/react/plugins/react-scripts/findReactScriptsWebpackConfig')
 const { startDevServer } = require('@cypress/webpack-dev-server')
 const _ = require('lodash')

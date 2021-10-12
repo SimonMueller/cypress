@@ -1,6 +1,5 @@
-const { defineConfig } = require('cypress')
-
 // @ts-check
+const { defineConfig } = require('cypress')
 const { devServer } = require('@cypress/react/plugins/craco')
 
 const cracoConfig = require('./craco.config.js')
