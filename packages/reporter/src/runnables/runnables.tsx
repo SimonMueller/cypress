@@ -121,7 +121,7 @@ class Runnables extends Component<RunnablesProps> {
 
     return (
       <div ref='container' className='container'>
-        <RunnableHeader spec={spec} />
+        <RunnableHeader spec={spec} runnablesStore={runnablesStore} />
         <RunnablesContent
           runnablesStore={runnablesStore}
           spec={spec}

@@ -1,11 +1,12 @@
 import _ from 'lodash'
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import AgentModel, { AgentProps } from '../agents/agent-model'
 import CommandModel, { CommandProps } from '../commands/command-model'
 import { HookProps } from '../hooks/hook-model'
 import appState, { AppState } from '../lib/app-state'
 import scroller, { Scroller } from '../lib/scroller'
 import RouteModel, { RouteProps } from '../routes/route-model'
+import { IntervalID } from '../lib/types'
 import TestModel, { TestProps, UpdatableTestProps, UpdateTestCallback } from '../test/test-model'
 import RunnableModel from './runnable-model'
 import SuiteModel, { SuiteProps } from './suite-model'
@@ -18,6 +19,9 @@ const defaults = {
 
   attemptingShowSnapshot: false,
   showingSnapshot: false,
+
+  _startTime: null,
+  _currentTime: null,
 }
 
 interface Props {
@@ -52,6 +56,9 @@ export class RunnablesStore {
    */
   @observable runnablesHistory: Record<string, RunnableArray> = {}
 
+  @observable _startTime: number | null = defaults._startTime
+  @observable _currentTime: number | null = defaults._startTime;
+
   runningSpec: string | null = null
 
   hasTests: boolean = false
@@ -71,6 +78,50 @@ export class RunnablesStore {
   constructor ({ appState, scroller }: Props) {
     this.appState = appState
     this.scroller = scroller
+  }
+
+  @computed get duration () {
+    if (!this._startTime) return 0
+
+    if (!this._currentTime) {
+      throw new Error('RunnablesStore should be initialized with start() method.')
+    }
+
+    return this._currentTime - this._startTime
+  }
+
+  start ({ startTime }) {
+    if (this._startTime) return
+
+    this._startTime = new Date(startTime).getTime()
+    this._updateCurrentTime()
+
+    this._startTimer()
+  }
+
+  _startTimer () {
+    this._interval = setInterval(action('duration:interval', this._updateCurrentTime.bind(this)), 100)
+  }
+
+  _stopTimer () {
+    clearInterval(this._interval as IntervalID)
+  }
+
+  _updateCurrentTime () {
+    this._currentTime = Date.now()
+  }
+
+  pause () {
+    this._stopTimer()
+  }
+
+  resume () {
+    this._startTimer()
+  }
+
+  end () {
+    this._stopTimer()
+    this._updateCurrentTime()
   }
 
   setRunnables (rootRunnable: RootRunnable) {
@@ -189,6 +240,7 @@ export class RunnablesStore {
   }
 
   reset () {
+    this._stopTimer()
     _.each(defaults, (value, key) => {
       this[key] = value
     })

@@ -98,6 +98,7 @@ const events: Events = {
       runnablesStore.setInitialScrollTop(startInfo.scrollTop)
       appState.setStudioActive(startInfo.studioActive)
       if (runnablesStore.hasTests) {
+        runnablesStore.start(startInfo)
         statsStore.start(startInfo)
       }
     }))
@@ -119,11 +120,13 @@ const events: Events = {
 
     runner.on('paused', action('paused', (nextCommandName: string) => {
       appState.pause(nextCommandName)
+      runnablesStore.pause()
       statsStore.pause()
     }))
 
     runner.on('run:end', action('run:end', () => {
       appState.end()
+      runnablesStore.end()
       statsStore.end()
     }))
 
@@ -140,12 +143,14 @@ const events: Events = {
 
     localBus.on('resume', action('resume', () => {
       appState.resume()
+      runnablesStore.resume()
       statsStore.resume()
       runner.emit('runner:resume')
     }))
 
     localBus.on('next', action('next', () => {
       appState.resume()
+      runnablesStore.resume()
       statsStore.resume()
       runner.emit('runner:next')
     }))
