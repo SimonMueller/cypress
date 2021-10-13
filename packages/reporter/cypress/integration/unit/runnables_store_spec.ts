@@ -82,11 +82,9 @@ describe('runnables store', () => {
   context('#start', () => {
     describe('when running', () => {
       let clock: SinonFakeTimers
-      let instance: RunnablesStore
 
       beforeEach(() => {
         clock = sinon.useFakeTimers(new Date('2016-07-18').getTime())
-        instance.setRunnables(createRootRunnable())
         instance.start({
           startTime: '2016-07-18',
         })
