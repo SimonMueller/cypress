@@ -44,11 +44,15 @@ const appStateStub = () => {
 
 type RunnablesStoreStub = RunnablesStore & {
   addLog: SinonSpy
+  end: SinonSpy
+  pause: SinonSpy
   reset: SinonSpy
+  resume: SinonSpy
   runnableStarted: SinonSpy
   runnableFinished: SinonSpy
   setInitialScrollTop: SinonStub
   setRunnables: SinonSpy
+  start: SinonSpy
   testById: SinonStub
   updateLog: SinonSpy
   removeLog: SinonSpy
@@ -57,11 +61,15 @@ type RunnablesStoreStub = RunnablesStore & {
 const runnablesStoreStub = () => {
   return {
     addLog: sinon.spy(),
+    end: sinon.spy(),
+    pause: sinon.spy(),
     reset: sinon.spy(),
+    resume: sinon.spy(),
     runnableStarted: sinon.spy(),
     runnableFinished: sinon.spy(),
     setInitialScrollTop: sinon.stub(),
     setRunnables: sinon.spy(),
+    start: sinon.spy(),
     testById: sinon.stub(),
     updateLog: sinon.spy(),
     removeLog: sinon.spy(),

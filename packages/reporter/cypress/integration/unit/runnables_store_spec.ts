@@ -1,4 +1,4 @@
-import sinon, { SinonSpy } from 'sinon'
+import sinon, { SinonFakeTimers, SinonSpy } from 'sinon'
 
 import runnablesStore, { RunnablesStore, RootRunnable, LogProps } from '../../../src/runnables/runnables-store'
 import SuiteModel, { SuiteProps } from '../../../src/runnables/suite-model'
@@ -77,6 +77,60 @@ describe('runnables store', () => {
 
   it('exports singleton by default', () => {
     expect(runnablesStore).to.be.instanceof(RunnablesStore)
+  })
+
+  context('#start', () => {
+    describe('when running', () => {
+      let clock: SinonFakeTimers
+      let instance: RunnablesStore
+
+      beforeEach(() => {
+        clock = sinon.useFakeTimers(new Date('2016-07-18').getTime())
+        instance.setRunnables(createRootRunnable())
+        instance.start({
+          startTime: '2016-07-18',
+        })
+      })
+
+      afterEach(() => {
+        clock.restore()
+      })
+
+      it('updates duration every 100 milliseconds', () => {
+        clock.tick(100)
+        expect(instance.duration).to.equal(100)
+        clock.tick(100)
+        expect(instance.duration).to.equal(200)
+        clock.tick(250)
+        expect(instance.duration).to.equal(400)
+        clock.tick(50)
+        expect(instance.duration).to.equal(500)
+      })
+
+      it('stops tracking duration when paused', () => {
+        clock.tick(100)
+        instance.pause()
+        clock.tick(100)
+        expect(instance.duration).to.equal(100)
+      })
+
+      it('picks up where it left off when paused then resumed', () => {
+        clock.tick(100)
+        instance.pause()
+        clock.tick(100)
+        expect(instance.duration).to.equal(100)
+        instance.resume()
+        clock.tick(100)
+        expect(instance.duration).to.equal(300)
+      })
+
+      it('stops tracking duration when ended', () => {
+        clock.tick(100)
+        instance.end()
+        clock.tick(100)
+        expect(instance.duration).to.equal(100)
+      })
+    })
   })
 
   context('#setRunnables', () => {
